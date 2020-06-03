@@ -1,0 +1,30 @@
+<div class="container">
+  <span style="position: absolute; right: 10px; top: 50px;">{{
+    this.myMoney
+  }}</span>
+
+  <p>
+    <span
+      *ngIf="this.myWallet"
+      style="position: absolute; right: 10px; top: 100px;"
+      >{{ this.myWallet }}
+    </span>
+    <span
+      *ngIf="this.myWallet"
+      style="position: absolute; right: 20px; top: 150px;"
+      >{{ this.actualCovertion }}
+    </span>
+  </p>
+  <button (click)="this.getWallets()">verifica carteiras</button>
+
+  <div class="row m-4">
+    <input type="number" #valueBtcBuy placeholder="valor em real" />
+    <button (click)="this.buyBtn(valueBtcBuy.value)">COMPRAR</button>
+  </div>
+
+  <div class="row m-4">
+    <input type="number" #valueBtcSell placeholder="valor em btc" />
+
+    <button (click)="this.sellBtc(valueBtcSell.value)">VENDER</button>
+  </div>
+</div>
