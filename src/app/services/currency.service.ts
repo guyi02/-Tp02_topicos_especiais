@@ -18,7 +18,8 @@ export class CurrencyService {
   oldCurrencies = [
     {
       date: '',
-      currency: '',
+      currency_brl: '',
+      currency_usd: '',
     },
   ];
 
@@ -54,13 +55,14 @@ export class CurrencyService {
             // Registra a data e o valor retornado pela requisição
             this.oldCurrencies.push({
               date: data.time.updated,
-              currency: data.bpi.BRL.rate + i,
+              currency_brl: data.bpi.BRL.rate + i,
+              currency_usd: data.bpi.USD.rate + i,
             });
 
             // Define a cotação atual
             this.actualCurrency = brl_currency;
           });
-      }, 10000);
+      }, 30000);
     }
   }
 

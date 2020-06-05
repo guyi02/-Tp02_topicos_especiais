@@ -1,5 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" [routerLink]="['/']">Mercado Bitcoin</a>
+<nav
+  class="navbar navbar-expand-lg navbar-light"
+  style="background-color: #061c30;"
+>
+  <a class="navbar-brand" [routerLink]="['/']" style="color: gray;"
+    >Mercado Bitcoin</a
+  >
   <button
     class="navbar-toggler"
     type="button"
@@ -15,16 +20,41 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/']"
+        <a
+          class="nav-link"
+          [routerLink]="['/']"
+          routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{ exact: true }"
           >Home <span class="sr-only">(current)</span></a
         >
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/currency']">Cotação</a>
+        <a
+          class="nav-link"
+          [routerLink]="['/currency']"
+          routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Cotação</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/market']">Mercado</a>
+        <a
+          class="nav-link"
+          [routerLink]="['/market']"
+          routerLinkActive="router-link-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Mercado</a
+        >
       </li>
     </ul>
+    <span class="variation">
+      Variação: {{ this.currencyService.indexCurrency | number: "2.1-2" }}%
+      <i
+        [ngStyle]="{
+          color: this.currencyService.indexCurrency > 0 ? 'green' : 'red'
+        }"
+        >{{ this.currencyService.indexCurrency > 0 ? "&#9650;" : "&#9660;" }}</i
+      >
+    </span>
   </div>
 </nav>

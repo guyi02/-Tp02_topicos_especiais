@@ -1,0 +1,10 @@
+.nav-link {
+  color: gray !important;
+}
+.variation {
+  color: #fff;
+  margin-left: auto;
+}
+.router-link-active {
+  color: #fff !important;
+}

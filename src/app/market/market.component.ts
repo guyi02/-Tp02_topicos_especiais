@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WalletService } from '../services/wallet.service';
 import { CurrencyService } from '../services/currency.service';
 import { UserService } from '../services/user.service';
@@ -8,12 +8,14 @@ import { UserService } from '../services/user.service';
   templateUrl: './market.component.html',
   styleUrls: ['./market.component.css'],
 })
-export class MarketComponent implements OnInit {
+export class MarketComponent implements OnInit, OnDestroy {
   hash: string =
     'E4508A57F7F8D8DB27C56D69CD065F31F411CF5921F318EE5C21D81D2B82F6BD';
   myMoney: number;
   myWallet: number;
   actualCovertion: number;
+  timerForWallet;
+  timerForHistoric;
   constructor(
     public wallet: WalletService,
     public currencyService: CurrencyService,
@@ -25,14 +27,21 @@ export class MarketComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setInterval(() => {
+    this.timerForWallet = setInterval(() => {
       this.myMoney = this.userService.getUserInfos().money;
       let userWallet = JSON.parse(localStorage.getItem('USERWALLET'));
       if (userWallet) {
         this.myWallet = userWallet.total;
         this.actualCovertion = this.quotationForSell(userWallet.total);
       }
-    }, 2000);
+    }, 200);
+  }
+
+  ngOnDestroy() {
+    localStorage.clear();
+    if (this.timerForWallet) {
+      clearInterval(this.timerForWallet);
+    }
   }
 
   getWallets() {
@@ -42,7 +51,7 @@ export class MarketComponent implements OnInit {
   buyBtn(buyValue: number) {
     let actualValue = this.userService.getUserInfos().money;
     if (actualValue < buyValue) {
-      alert('opsss');
+      alert('Valor maior que seu saldo');
     } else {
       this.userService.operationBuy(buyValue);
       this.wallet.sendBtc(this.hash, this.quotationForBuy(buyValue));

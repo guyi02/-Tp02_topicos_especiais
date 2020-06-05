@@ -1,1 +1,58 @@
+<div style="background-color: #2c374f;" *ngIf="this.user">
+  <div class="container-fluid h-100">
+    <div class="row">
+      <div class="col-4">
+        <div class="row-users">
+          <div style="position: relative;">
+            <img
+              class="user-rounded-image"
+              src="{{ user.avatar_url }}"
+              width="80"
+              height="80"
+              alt=""
+            />
+          </div>
+        </div>
 
+        <div class="card card-user rounded p-3">
+          <h4 class="text-center mb-3">
+            {{ this.user.name || this.user.login }}
+          </h4>
+          <span>Bio</span>
+          <hr />
+          <p>
+            {{ this.user.bio }}
+          </p>
+        </div>
+      </div>
+      <div class="col-8 bg-white">
+        <h2>Repositórios</h2>
+        <div class="scroll">
+          <table class="table">
+            <tr>
+              <th scope="col">NOME</th>
+              <th scope="col">URL</th>
+              <th scope="col">DATA DE CRIAÇÃO</th>
+              <th scope="col">LINGUAGEM</th>
+            </tr>
+
+            <tr *ngFor="let repo of repos">
+              <td>{{ repo.name }}</td>
+              <td>
+                <a
+                  href="{{ repo.clone_url }}"
+                  target="_blank"
+                  class="link-repo-url"
+                  >{{ repo.clone_url }}</a
+                >
+              </td>
+
+              <td>{{ repo.created_at }}</td>
+              <td>{{ repo.language }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

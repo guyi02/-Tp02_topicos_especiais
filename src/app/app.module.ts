@@ -9,9 +9,6 @@ import { HeaderComponent } from './header/header.component';
 import { IndexComponent } from './index/index.component';
 import { TeamComponent } from './team/team.component';
 import { MarketComponent } from './market/market.component';
-import { UserService } from './services/user.service';
-import { CurrencyService } from './services/currency.service';
-import { WalletService } from './services/wallet.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +20,7 @@ import { WalletService } from './services/wallet.service';
     MarketComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [UserService, CurrencyService, WalletService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,30 +1,78 @@
-<div class="container">
-  <span style="position: absolute; right: 10px; top: 50px;">{{
-    this.myMoney
-  }}</span>
+<div class="main-bg">
+  <div class="container p-5">
+    <div class="card p-3">
+      <h3 class="text-center my-3">Mercado de compra e venda</h3>
+      <div class="row">
+        <div class="col d-flex flex-column justify-content-center">
+          <input
+            #valueBtcBuy
+            type="number"
+            class="input-cripto form-control"
+            placeholder="Valor em real"
+          />
+          <button
+            (click)="this.buyBtn(valueBtcBuy.value)"
+            class="btn btn-large btn-buy"
+          >
+            Comprar
+          </button>
+        </div>
 
-  <p>
-    <span
-      *ngIf="this.myWallet"
-      style="position: absolute; right: 10px; top: 100px;"
-      >{{ this.myWallet }}
-    </span>
-    <span
-      *ngIf="this.myWallet"
-      style="position: absolute; right: 20px; top: 150px;"
-      >{{ this.actualCovertion }}
-    </span>
-  </p>
-  <button (click)="this.getWallets()">verifica carteiras</button>
+        <div
+          class="col d-flex justify-content-center flex-column justify-content-center align-items-center"
+        >
+          <p>
+            <i class="fas fa-wallet"></i>
+            {{ this.myMoney }}
+          </p>
+          <p *ngIf="this.myWallet">
+            <i class="fab fa-bitcoin"></i>
+            {{ this.myWallet }}
+          </p>
 
-  <div class="row m-4">
-    <input type="number" #valueBtcBuy placeholder="valor em real" />
-    <button (click)="this.buyBtn(valueBtcBuy.value)">COMPRAR</button>
-  </div>
-
-  <div class="row m-4">
-    <input type="number" #valueBtcSell placeholder="valor em btc" />
-
-    <button (click)="this.sellBtc(valueBtcSell.value)">VENDER</button>
+          <p *ngIf="this.myWallet">
+            <i class="fas fa-clock"></i>
+            {{ this.actualCovertion }}
+          </p>
+        </div>
+        <div class="col d-flex flex-column justify-content-center">
+          <input
+            #valueBtcSell
+            type="number"
+            class="input-cripto form-control"
+            placeholder="Valor em btc"
+          />
+          <button
+            (click)="this.sellBtc(valueBtcSell.value)"
+            class="btn btn-large btn-sell"
+          >
+            Vender
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card p-3 mt-4" *ngIf="this.wallet.getHistoric()">
+      <h3 class="text-center my-3">Histórico</h3>
+      <div class="row">
+        <table class="table w-100 bg-white">
+          <thead class="thead-dark">
+            <th>Data</th>
+            <th>Valor em btc</th>
+          </thead>
+          <tbody class="tbody-light">
+            <tr *ngFor="let historic of this.wallet.getHistoric()">
+              <td>
+                {{ historic.date }}
+              </td>
+              <td
+                [ngStyle]="{ color: historic.type == 'buy' ? 'green' : 'red' }"
+              >
+                {{ historic.value }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

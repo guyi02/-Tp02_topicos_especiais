@@ -1,0 +1,33 @@
+.main-bg {
+  background-image: url("../../assets/imagens/btcImage.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.btn-buy {
+  background-color: #43a93d;
+  color: #fff;
+  font-size: 24px;
+}
+
+.btn-sell {
+  background-color: #c2322f;
+  color: #fff;
+  font-size: 24px;
+}
+.input-cripto {
+  width: 100%;
+  height: 50px;
+  color: #000;
+  margin: 20px 0;
+  border-radius: 5px;
+  border-color: #dedede;
+  font-size: 30px;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ddd;
+  opacity: 1;
+}

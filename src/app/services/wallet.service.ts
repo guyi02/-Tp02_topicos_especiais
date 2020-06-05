@@ -5,10 +5,10 @@ import { Wallet } from '../models/WalletType';
   providedIn: 'root',
 })
 export class WalletService {
-  mainWalletInitialValue: number = 50000;
+  otherWalletInitialValue: number = 50000;
   mainWalletHash: string =
     '79809644A830EF92424A66227252B87BBDFB633A9DAB18BA450C1B8D35665F20';
-
+  historic = [];
   constructor() {}
 
   sendBtc(walletAddress: string, valueInBtc: number) {
@@ -26,20 +26,29 @@ export class WalletService {
             parseFloat(valueInBtc.toString())
           }`;
           wallet['total'] = newTotal;
-
+          this.historic.push({
+            date: new Date(),
+            value: valueInBtc,
+            type: 'buy',
+          });
           setTimeout(() => {
             localStorage.setItem('USERWALLET', JSON.stringify(wallet));
           }, 200);
         }
       });
+    } else {
+      let valueToInsert = valueInBtc;
+      let obj = {
+        hash: walletAddress,
+        total: `${parseFloat(valueToInsert.toString())}`,
+      };
+      this.historic.push({
+        date: new Date(),
+        value: valueInBtc,
+        type: 'buy',
+      });
+      localStorage.setItem('USERWALLET', JSON.stringify(obj));
     }
-
-    let valueToInsert = valueInBtc;
-    let obj = {
-      hash: walletAddress,
-      total: `${parseFloat(valueToInsert.toString())}`,
-    };
-    localStorage.setItem('USERWALLET', JSON.stringify(obj));
   }
 
   sellBtc(walletAddress: string, valueInBtc: number) {
@@ -60,9 +69,14 @@ export class WalletService {
               parseFloat(valueInBtc.toString())
             }`;
             wallet['total'] = newTotal;
+            this.historic.push({
+              date: new Date(),
+              value: valueInBtc,
+              type: 'sell',
+            });
             setTimeout(() => {
               localStorage.setItem('USERWALLET', JSON.stringify(wallet));
-            }, 200);
+            }, 500);
           }
         }
       });
@@ -81,10 +95,14 @@ export class WalletService {
   generateExchangeWallet() {
     let obj = {
       hash: this.mainWalletHash,
-      total: this.mainWalletInitialValue.toString(),
+      total: this.otherWalletInitialValue.toString(),
     };
 
     let data = JSON.stringify(obj);
     localStorage.setItem('OTHERWALLET', data);
+  }
+
+  getHistoric() {
+    return this.historic;
   }
 }
