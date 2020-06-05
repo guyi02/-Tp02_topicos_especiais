@@ -10,7 +10,6 @@ export class UserService {
   baseUrl = 'https://api.github.com/users/guyi02';
   gitUserInfo: GitUser = null;
   gitRepos: GitRepository = null;
-
   money: number = 0;
   userHash: string = '';
 

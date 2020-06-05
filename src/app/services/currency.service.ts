@@ -23,7 +23,7 @@ export class CurrencyService {
     },
   ];
 
-  indexCurrency;
+  percentCurrency;
 
   timer: any;
 
@@ -47,7 +47,7 @@ export class CurrencyService {
             // Verifica se cotação atual é diferente do valor da última
             if (brl_currency !== lastCurrency) {
               if (this.lastCurrencies.length > 0) {
-                this.indexCurrency = (brl_currency / lastCurrency - 1) * 100;
+                this.percentCurrency = (brl_currency / lastCurrency - 1) * 100;
               }
               this.lastCurrencies.push(brl_currency);
             }
@@ -76,7 +76,7 @@ export class CurrencyService {
   /**
    * Acessa o atributo `actualCurrency`
    */
-  getCurrentCurrency() {
+  getActualCurrency() {
     return this.actualCurrency;
   }
 

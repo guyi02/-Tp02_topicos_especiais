@@ -48,12 +48,18 @@
       </li>
     </ul>
     <span class="variation">
-      Variação: {{ this.currencyService.indexCurrency | number: "2.1-2" }}%
+      Atual: {{ this.currencyService.actualCurrency }}
+    </span>
+
+    <span class="variation">
+      Variação: {{ this.currencyService.percentCurrency | number: "2.1-2" }}%
       <i
         [ngStyle]="{
-          color: this.currencyService.indexCurrency > 0 ? 'green' : 'red'
+          color: this.currencyService.percentCurrency > 0 ? 'green' : 'red'
         }"
-        >{{ this.currencyService.indexCurrency > 0 ? "&#9650;" : "&#9660;" }}</i
+        >{{
+          this.currencyService.percentCurrency > 0 ? "&#9650;" : "&#9660;"
+        }}</i
       >
     </span>
   </div>

@@ -15,7 +15,6 @@ export class MarketComponent implements OnInit, OnDestroy {
   myWallet: number;
   actualCovertion: number;
   timerForWallet;
-  timerForHistoric;
   constructor(
     public wallet: WalletService,
     public currencyService: CurrencyService,
@@ -61,7 +60,7 @@ export class MarketComponent implements OnInit, OnDestroy {
   sellBtc(value: number) {
     let userWallet = JSON.parse(localStorage.getItem('USERWALLET'));
     if (userWallet.total < value) {
-      alert('nao tem esse valor');
+      alert('Você não possui este valor em Bitcoins');
     } else {
       this.userService.operationSell(this.quotationForSell(value));
       this.wallet.sellBtc(this.hash, value);
@@ -69,13 +68,13 @@ export class MarketComponent implements OnInit, OnDestroy {
   }
 
   quotationForBuy(valueBuy: number) {
-    let actualQutation = this.currencyService.getCurrentCurrency();
+    let actualQutation = this.currencyService.getActualCurrency();
     let calc = (valueBuy * 1) / actualQutation;
     return calc;
   }
 
   quotationForSell(valueSell: number) {
-    let actualQutation = this.currencyService.getCurrentCurrency();
+    let actualQutation = this.currencyService.getActualCurrency();
     let calc = actualQutation * valueSell;
     return calc;
   }
